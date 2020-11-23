@@ -16,7 +16,10 @@
                 "${workspaceFolder}/Drivers/CMSIS/Include",
                 "${workspaceFolder}/third_party/etl/include"
             ],
-            "defines": [],
+            "defines": [
+                "STM32F407xx",
+                "USE_HAL_DRIVER"
+            ],
             "compilerPath": "/usr/bin/arm-none-eabi-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
