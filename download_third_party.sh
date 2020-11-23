@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p third_party
+
 # ETL
 if [ ! -f third_party/etl ]
 then
