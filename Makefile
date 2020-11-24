@@ -150,7 +150,7 @@ C_INCLUDES =  \
 
 CXX_INCLUDES =  \
 $(C_INCLUDES) \
--Ithird_party/etl-19.1.0/include \
+-Ithird_party/etl/include \
 -Ithird_party/stm32cclib/include
 
 
