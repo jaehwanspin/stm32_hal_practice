@@ -21,6 +21,9 @@
 #include "main.h"
 #include "usb_host.h"
 
+#include <etl/array.h>
+#include <etl/string.h>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -121,15 +124,49 @@ int main(void)
     /* USER CODE BEGIN 2 */
 
     /* USER CODE END 2 */
-
+    bool flag = false;
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+
+    etl::array<uint32_t, 4> LEDs
+      = { GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15 };
+
     while (1)
     {
         /* USER CODE END WHILE */
         MX_USB_HOST_Process();
-
         /* USER CODE BEGIN 3 */
+
+
+        if (flag)
+        {
+            etl::string<50> fucking = "hey! hey you! yeah you~~\r\n";
+            HAL_USART_Transmit(&husart2, (uint8_t *)fucking.c_str(), fucking.size(), HAL_MAX_DELAY);
+
+            HAL_GPIO_WritePin(GPIOI,
+                GPIO_PIN_8,
+                GPIO_PIN_SET);
+            // for (auto pin : LEDs)
+            //     HAL_GPIO_WritePin(GPIOD,
+            //         pin,
+            //         GPIO_PIN_SET);
+        }
+        else
+        {
+            etl::string<50> fucking = "I have a gift for you\r\n";
+            HAL_USART_Transmit(&husart2, (uint8_t *)fucking.c_str(), fucking.size(), HAL_MAX_DELAY);
+            
+            HAL_GPIO_WritePin(GPIOI,
+                GPIO_PIN_8,
+                GPIO_PIN_RESET);
+            // for (auto pin : LEDs)
+            //     HAL_GPIO_WritePin(GPIOD,
+            //         pin,
+            //         GPIO_PIN_RESET);
+        }
+        
+        flag = !flag;
+        HAL_Delay(100);
     }
     /* USER CODE END 3 */
 }
@@ -498,6 +535,7 @@ static void MX_GPIO_Init(void)
 
     /*Configure GPIO pin Output Level */
     HAL_GPIO_WritePin(GPIOD, LD4_Pin | LD3_Pin | LD5_Pin | LD6_Pin | Audio_RST_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOI, GPIO_PIN_8, GPIO_PIN_RESET);
 
     /*Configure GPIO pin : CS_I2C_SPI_Pin */
     GPIO_InitStruct.Pin = CS_I2C_SPI_Pin;
@@ -548,6 +586,12 @@ static void MX_GPIO_Init(void)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_8;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
     /*Configure GPIO pin : OTG_FS_OverCurrent_Pin */
     GPIO_InitStruct.Pin = OTG_FS_OverCurrent_Pin;
