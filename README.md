@@ -1,1 +1,10 @@
 # stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
+# stm32_hal_practice
